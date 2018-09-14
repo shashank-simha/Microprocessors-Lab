@@ -1,0 +1,22 @@
+.macro exit
+	mov eax, 1
+	int 0x80
+.endm
+
+.macro display address, length
+	lea ecx, \address
+	mov edx, \length
+	mov eax, 4
+	mov ebx, 1
+	int 0x80
+.endm
+
+.macro read_data address, length
+	lea ecx, \address
+	mov edx, \length
+	mov eax, 3
+	mov ebx, 2
+	int 0x80
+.endm
+
+
