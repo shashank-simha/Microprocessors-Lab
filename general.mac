@@ -19,4 +19,23 @@
 	int 0x80
 .endm
 
+.macro display_hex address, length
+	.local up
+	lea ecx, \address
+	mov edx, \length
+	mov eax, [ecx]
+	cmp eax, 0x00000009
+	jle up
+	
+  up:
+	mov eax, 4
+	mov ebx, 1
+	int 0x80	
+.endm
 
+.macro load_numbers
+	mov ax, first_no
+	mov bx, second_no
+	sub ax, 0x30
+	sub bx, 0x30
+.endm
