@@ -36,12 +36,12 @@ _start:
 	mov eax, 9
 	mov ebx, 4
 	sub eax, ebx
-	daa
+	das
 	
 	//aas
 	mov eax, '9'
 	mov ebx, '4'
 	sub eax, ebx
-	aaa
+	aas
 	
 exit
