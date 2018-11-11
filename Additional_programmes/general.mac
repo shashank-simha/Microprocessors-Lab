@@ -39,3 +39,14 @@
 	sub ax, 0x30
 	sub bx, 0x30
 .endm
+
+.macro display_and_load address, length, ainit, cinit
+	lea ecx, \address
+	mov edx, \length
+	mov eax, 4
+	mov ebx, 1
+	int 0x80
+	mov cx, \cinit
+	mov al, \ainit
+.endm
+

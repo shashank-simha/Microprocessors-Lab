@@ -15,8 +15,6 @@
 
 	_start: lea ebx, n1
 			
-			
-			end: nop
 			finit
 			fld dword ptr[ebx+0]
 			fld dword ptr[ebx+4]
