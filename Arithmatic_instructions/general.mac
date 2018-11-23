@@ -29,13 +29,65 @@
 	
   up:
 	mov eax, 4
-	mov ebx, 1
+	mov ebx, 1		#not completed
 	int 0x80	
 .endm
+
+.macro display_number address, length
+		
+		lea ecx, \address
+		mov edx, 1
+		
+		mov edi, \length
+ cont:	mov eax, [ecx] #copy to eax
+		mov esi, eax   #copy to esi since ebx will be overwritten
+		shr eax, 4
+		and al, 0x0f
+		cmp eax, 0x00000009
+		jle up
+ 		add eax, 0x37
+		jmp nxt
+ up:	add eax, 0x30
+ nxt:	mov [ecx], eax
+		mov eax, 4
+		mov ebx, 1
+		int 0x80
+	
+		mov eax, esi #reload number
+		and al, 0x0f
+		cmp eax, 0x00000009
+		jle up1
+ 		add eax, 0x37
+		jmp nxt1
+ up1:	add eax, 0x30
+ nxt1:	mov [ecx], eax
+		mov eax, 4
+		mov ebx, 1
+		int 0x80
+		
+		add ecx,  4
+		dec edi
+		jnz cont
+.endm 
 
 .macro load_numbers
 	mov ax, first_no
 	mov bx, second_no
 	sub ax, 0x30
-	sub bx, 0x30
+	sub bx, 0x30	#not completed 
 .endm
+
+.macro display_and_load address, length, ainit, cinit
+	lea ebx, \ainit
+	mov [ebx], al
+	lea ebx, \cinit
+	mov [ebx], cx
+	lea ecx, \address
+	mov edx, \length
+	mov eax, 4
+	mov ebx, 1
+	int 0x80
+	mov cx, \cinit
+	mov al, \ainit
+.endm
+
